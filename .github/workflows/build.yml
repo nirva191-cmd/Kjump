@@ -7,15 +7,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: kivy/buildozer:latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Fix workspace permissions
+      run: |
+        git config --global --add safe.directory /__w/Kjump/Kjump
 
     - name: Build with Buildozer
-      uses: kivy/buildozer-action@v1
-      with:
-        filename: buildozer.spec
-        command: buildozer -v android debug
+      run: buildozer -v android debug
 
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
