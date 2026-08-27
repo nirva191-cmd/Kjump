@@ -19,9 +19,7 @@ jobs:
         git config --global --add safe.directory /__w/Kjump/Kjump
 
     - name: Build with Buildozer
-      env:
-        BUILDOZER_ALLOW_ROOT: "true"
-      run: buildozer -v android debug
+      run: buildozer --accept-root -v android debug
 
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
